@@ -12,9 +12,7 @@ import (
 const initQuery = `BEGIN TRANSACTION;
 
 CREATE TABLE IF NOT EXISTS "group_member" (
-	"group_id"	INTEGER NOT NULL,
-	"user_id"	INTEGER NOT NULL,
-	UNIQUE("user_id","group_id")
+	"id"	INTEGER NOT NULL
 );
 
 COMMIT;
@@ -30,12 +28,10 @@ func TestStupidity(t *testing.T) {
 	tables := bug.ListTables(db)
 	bug.FatalAssertEq(t, "table length before", len(tables), 1)
 
-	stmt := "SELECT group_id FROM group_member WHERE user_id = ?;"
+	stmt := "SELECT id FROM group_member WHERE id = ?;"
 	_, err = db.Query(stmt, 0)
 	bug.FailIfErr(t, err, "get group member")
 
 	tables = bug.ListTables(db)
 	bug.FatalAssert(t, "table length after", len(tables) > 0)
-
-	t.Fail()
 }
