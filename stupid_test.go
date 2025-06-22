@@ -33,5 +33,5 @@ func TestStupidity(t *testing.T) {
 	bug.FailIfErr(t, err, "get group member")
 
 	tables = bug.ListTables(db)
-	bug.FatalAssert(t, "table length after", len(tables) > 0)
+	bug.FatalAssertEq(t, "table length after", len(tables), 1)
 }
