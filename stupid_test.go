@@ -6,7 +6,8 @@ import (
 
 	"bug"
 
-	_ "github.com/glebarez/go-sqlite"
+	_ "github.com/ncruces/go-sqlite3/driver"
+	_ "github.com/ncruces/go-sqlite3/embed"
 )
 
 const initQuery = `BEGIN TRANSACTION;
@@ -19,7 +20,7 @@ COMMIT;
 `
 
 func TestStupidity(t *testing.T) {
-	db, err := sql.Open("sqlite", ":memory:")
+	db, err := sql.Open("sqlite3", ":memory:")
 	bug.FailIfErr(t, err, "db connection")
 
 	_, err = db.Exec(initQuery)
